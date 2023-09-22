@@ -8,8 +8,8 @@ package clases;
 import java.time.LocalDate;
 
 /**
- *
- * @author 2dam
+ * Se trata de la clase convocatoria
+ * @author Ander, Diego, Adrian
  */
 public class ConvocatoriaExamen {
 
@@ -19,6 +19,8 @@ public class ConvocatoriaExamen {
     private String curso;
     private Enunciado enunciado;
 
+    
+    //Getters y setters 
     public ConvocatoriaExamen() {
 
     }
@@ -62,7 +64,7 @@ public class ConvocatoriaExamen {
     public void setEnunciado(Enunciado enunciado) {
         this.enunciado = enunciado;
     }
-
+    
     public void setDatosConvocatoriaExamen() {
         convocatoria = utilidades.Utilidades.introducirCadena("Introduce la convocatoria: ");
         descripcion = utilidades.Utilidades.introducirCadena("Introduce la descripcion: ");

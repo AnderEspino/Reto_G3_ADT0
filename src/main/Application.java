@@ -3,12 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package main;
 
 /**
  *
  * @author 2dam
  */
-public class DaoImplementacionFich implements DAO{
-    
+public class Application {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Menu.menu(new Controlador());
+    }
+
 }

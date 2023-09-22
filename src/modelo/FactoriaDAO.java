@@ -9,6 +9,13 @@ package modelo;
  *
  * @author 2dam
  */
-public class DaoImplementacionFich implements DAO{
-    
+public class FactoriaDAO {
+
+    public static DAO getImplementacionBD() {
+        return new DaoImplementacionBD();
+    }
+
+    public static DAO getImplementacionFich() {
+        return new DaoImplementacionFich();
+    }
 }

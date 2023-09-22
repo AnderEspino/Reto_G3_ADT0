@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
  *
  * @author 2dam
  */
-public class DaoImplementacionBD {
+public class DaoImplementacionBD implements DAO{
 
     private Connection con;
     private PreparedStatement stmt;
@@ -33,6 +33,8 @@ public class DaoImplementacionBD {
         this.userBD = this.configFichero.getString("DBUser");
         this.passwordBD = this.configFichero.getString("DBPass");
     }
+
+   
 
     private void openConnection() {
         try {
