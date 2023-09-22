@@ -151,7 +151,7 @@ public class DaoImplementacionFich implements DAO {
                 }
             }
         }
-        return covoy;
+        return null;
     }
 
     public List<ConvocatoriaExamen> consultConvocatory(Integer id) {
