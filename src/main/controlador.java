@@ -5,10 +5,44 @@
  */
 package main;
 
+import clases.ConvocatoriaExamen;
+import clases.UnidadDidactica;
+import modelo.DAO;
+import modelo.FactoriaDAO;
+
 /**
  *
- * @author 2dam
+ * @author Ander
  */
 public class controlador {
-    
+
+    private DAO daoBD = FactoriaDAO.getImplementacionBD();
+    private DAO daoFich = FactoriaDAO.getImplementacionFich();
+
+    private static void createDidacticUnity(UnidadDidactica unidad) {
+
+    }
+
+    private static void createFormulation() {
+
+    }
+
+    private static void consultFormulation() {
+
+    }
+
+    private static void showFormulation() {
+
+    }
+
+    private void createConvocatory() {
+        ConvocatoriaExamen covoy;
+        covoy = new ConvocatoriaExamen();
+        daoFich.createConvocatory(covoy);
+    }
+
+    private static void consultConvocatory() {
+
+    }
 }
+

@@ -5,10 +5,29 @@
  */
 package modelo;
 
+import clases.ConvocatoriaExamen;
+import clases.Enunciado;
+import clases.UnidadDidactica;
+import java.util.List;
+
 /**
  *
- * @author 2dam
+ * @author Diego
  */
 public interface DAO {
     
+    public UnidadDidactica createDidaticUnity(UnidadDidactica uni);
+    
+    public Enunciado createFormulation(Enunciado enun);
+    
+    public List<Enunciado> consultFormulation(Integer id);
+    
+    public Enunciado showFormulation(Integer id);
+    
+    public ConvocatoriaExamen createConvocatory(ConvocatoriaExamen covoy);
+    
+    public List<ConvocatoriaExamen> consultConvocatory(Integer id);
+    
+    
 }
+
