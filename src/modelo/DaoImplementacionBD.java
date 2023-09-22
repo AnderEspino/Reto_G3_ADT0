@@ -5,17 +5,21 @@
  */
 package modelo;
 
+import clases.ConvocatoriaExamen;
+import clases.Enunciado;
+import clases.UnidadDidactica;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
  *
  * @author 2dam
  */
-public class DaoImplementacionBD {
+public class DaoImplementacionBD implements DAO {
 
     private Connection con;
     private PreparedStatement stmt;
@@ -54,5 +58,35 @@ public class DaoImplementacionBD {
         if (con != null) {
             con.close();
         }
+    }
+
+    @Override
+    public UnidadDidactica createDidaticUnity(UnidadDidactica uni) {
+        return null;
+    }
+
+    @Override
+    public Enunciado createFormulation(Enunciado enun) {
+       return null;
+    }
+
+    @Override
+    public List<Enunciado> consultFormulation(Integer id) {
+        return null;
+    }
+
+    @Override
+    public Enunciado showFormulation(Integer id) {
+        return null;
+    }
+
+    @Override
+    public ConvocatoriaExamen createConvocatory(ConvocatoriaExamen covoy) {
+      return null;
+    }
+
+    @Override
+    public List<ConvocatoriaExamen> consultConvocatory(Integer id) {
+       return null;
     }
 }
