@@ -9,15 +9,17 @@ import clases.ConvocatoriaExamen;
 import clases.Enunciado;
 import clases.UnidadDidactica;
 import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- *
- * @author 2dam
+ * Métodos, conexiones y consultas SQL para realizar la parte de Base de datos del proyecto
+ * @author Diego
  */
 public class DaoImplementacionBD implements DAO {
 
@@ -28,6 +30,13 @@ public class DaoImplementacionBD implements DAO {
     private String urlBD;
     private String userBD;
     private String passwordBD;
+    
+    private final String CREATEUNID = "INSERT INTO unidad (id, acronimo, titulo, evaluacion, descripcion) VALUES (?,?,?,?,?)";
+    private final String CREATEENUN = "INSERT INTO enunciado (id, acronimo, titulo, evaluacion, descripcion, unidads_id) VALUES (?,?,?,?,?,?)";
+    private final String CONSULTENUN = "SELECT * FROM enunciado en INNER JOIN unidad uni ON en.id = uni.id";
+    private final String CONSULTENUNDOCU = "SELECT * FROM enunciado WHERE id = ? AND ruta = ?";
+    
+    
 
     // Metodo para conectarnos a la base de datos
     public DaoImplementacionBD() {
@@ -62,24 +71,140 @@ public class DaoImplementacionBD implements DAO {
 
     @Override
     public UnidadDidactica createDidaticUnity(UnidadDidactica uni) {
-        return null;
+        this.openConnection();
+        ResultSet rs = null;
+        try {
+            
+            stmt = con.prepareStatement(CREATEUNID);
+            
+            stmt.setInt(1, uni.getId());
+            stmt.setString(2, uni.getAcronimo());
+            stmt.setString(3, uni.getTitulo());
+            stmt.setString(4, uni.getEvaluacion());
+            stmt.setString(5, uni.getDescripcion());
+            stmt.executeUpdate();
+            if (rs.next()) {
+                uni.getId();
+                uni.getAcronimo();
+                uni.getTitulo();
+                uni.getEvaluacion();
+                uni.getDescripcion();
+            }else{
+                throw new SQLException("Ha habido un error al insertar los datos");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return uni;
     }
 
+    
     @Override
     public Enunciado createFormulation(Enunciado enun) {
-       return null;
+       this.openConnection();
+       ResultSet rs = null;
+        
+        try {
+            
+            stmt = con.prepareStatement(CREATEENUN);
+            
+            stmt.setInt(1, enun.getId());
+            stmt.setString(2, enun.getDescripcion());
+            stmt.setInt(3, enun.getNivel().ordinal());
+            stmt.setBoolean(4, enun.isDisponible());
+            stmt.setString(5, enun.getRuta());
+            stmt.setObject(6, enun.getUnidadDidactica());
+            stmt.executeUpdate();
+            if (rs.next()) {
+                enun.getId();
+                enun.getDescripcion();
+                enun.getNivel().ordinal();
+                enun.isDisponible();
+                enun.getRuta();
+                enun.getUnidadDidactica();
+            }else{
+                throw new SQLException("Ha habido un error al insertar los datos");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return enun;
     }
-
+    
     @Override
     public List<Enunciado> consultFormulation(Integer id) {
-        return null;
-    }
+       
+       this.openConnection();
+       List<Enunciado> listEnum = new ArrayList<>();
+       
+        
+        try {
+            
+            stmt = con.prepareStatement(CONSULTENUN);
+            
+            stmt.setInt(1, listEnum.get(0).getId());
+            stmt.setString(2, listEnum.get(1).getDescripcion());
+            stmt.setInt(3, listEnum.get(2).getNivel().ordinal());
+            stmt.setBoolean(4, listEnum.get(3).isDisponible());
+            stmt.setString(5, listEnum.get(4).getRuta());
+            stmt.setObject(6, listEnum.get(5).recorrerConvocatorias());
 
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return listEnum;
+    }
+    
     @Override
     public Enunciado showFormulation(Integer id) {
-        return null;
-    }
+       Enunciado enun = new Enunciado();
+       this.openConnection();
+       try {
+            
+            stmt = con.prepareStatement(CONSULTENUNDOCU);
+            
+            stmt.setInt(1, enun.getId());
+            stmt.setString(2, enun.getDescripcion());
+            stmt.setInt(3, enun.getNivel().ordinal());
+            stmt.setBoolean(4, enun.isDisponible());
+            stmt.setString(5, enun.getRuta());
+            stmt.setObject(6, enun.getUnidadDidactica());
 
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return enun;
+    }
+    
+    
+    
+    //Ignorar, estos métodos se hacen en el fichero
     @Override
     public ConvocatoriaExamen createConvocatory(ConvocatoriaExamen covoy) {
       return null;

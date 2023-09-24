@@ -11,7 +11,7 @@ import clases.UnidadDidactica;
 import java.util.List;
 
 /**
- *
+ * Métodos de la interfaz DAO asociados a la parte de la base de datos
  * @author Diego
  */
 public interface DAO {
