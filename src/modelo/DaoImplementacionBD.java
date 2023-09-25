@@ -34,7 +34,7 @@ public class DaoImplementacionBD implements DAO {
     private final String CREATEUNID = "INSERT INTO unidad (id, acronimo, titulo, evaluacion, descripcion) VALUES (?,?,?,?,?)";
     private final String CREATEENUN = "INSERT INTO enunciado (id, acronimo, titulo, evaluacion, descripcion, unidads_id) VALUES (?,?,?,?,?,?)";
     private final String CONSULTENUN = "SELECT * FROM enunciado en INNER JOIN unidad uni ON en.id = uni.id";
-    private final String CONSULTENUNDOCU = "SELECT * FROM enunciado WHERE id = ? AND ruta = ?";
+    private final String CONSULTENUNDOCU = "SELECT * FROM enunciado WHERE id = ?";
     
     
 
