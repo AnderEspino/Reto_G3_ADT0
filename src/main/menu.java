@@ -5,6 +5,7 @@
  */
 package main;
 
+import clases.ConvocatoriaExamen;
 import modelo.DaoImplementacionFich;
 
 /**
@@ -15,7 +16,7 @@ public class menu {
 
     public static void menu(controlador controlador) {
         Integer eleccion;
-        
+
         do {
             menu();
             switch (eleccion = utilidades.Utilidades.leerInt("Introduce una opcion: ")) {
@@ -37,7 +38,7 @@ public class menu {
                 case 6:
                     consultConvocatory(controlador);
                     break;
-                case 7:     
+                case 7:
                     System.out.println("El programa ha finalizado!");
                     System.exit(0);
                     break;
@@ -48,7 +49,7 @@ public class menu {
     }
 
     private static void menu() {
-        System.out.println("1.Create a Didactic Unity.\n" + "2.Create a formulation.\n" + "3.Consult a formulation.\n" + "4.Show a formulation.\n" + "5.Create a Convocatory.\n" + "6.Show a convocatory.\n" + "7.Exit.");
+        System.out.println("1.Crear una unidad didactica.\n" + "2.Create a formulation.\n" + "3.Consult a formulation.\n" + "4.Show a formulation.\n" + "5.Create a Convocatory.\n" + "6.Show a convocatory.\n" + "7.Exit.");
     }
 
     private static void createDidacticUnity(controlador controlador) {
@@ -68,7 +69,8 @@ public class menu {
     }
 
     private static void createConvocatory(controlador controlador) {
-        
+        ConvocatoriaExamen covoy = new ConvocatoriaExamen();
+        covoy.setDatosConvocatoriaExamen();
     }
 
     private static void consultConvocatory(controlador controlador) {
