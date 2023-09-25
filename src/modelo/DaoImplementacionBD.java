@@ -5,10 +5,15 @@
  */
 package modelo;
 
+import clases.ConvocatoriaExamen;
+import clases.Enunciado;
+import clases.UnidadDidactica;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -24,6 +29,8 @@ public class DaoImplementacionBD implements DAO{
     private String urlBD;
     private String userBD;
     private String passwordBD;
+    
+     private final String SELECT_ENUNCIADO = "SELECT * FROM enunciado WHERE id=?";
 
     // Metodo para conectarnos a la base de datos
     public DaoImplementacionBD() {
@@ -57,4 +64,71 @@ public class DaoImplementacionBD implements DAO{
             con.close();
         }
     }
+    
+    
+    
+     public Enunciado recogerEnunciadoId(String id) {
+        this.openConnection();
+        Enunciado enun = null;
+        ResultSet rs;
+
+        try {
+            stmt = (PreparedStatement) con.prepareStatement(SELECT_ENUNCIADO);
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                enun = new Enunciado();
+                enun.setId(rs.getInt("id"));
+                enun.setDescripcion(rs.getString("descripcion"));
+                enun.isDisponible();
+                enun.setRuta(rs.getString("ruta"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            this.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return enun;
+
+    }
+
+    @Override
+    public UnidadDidactica createDidaticUnity(UnidadDidactica uni) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Enunciado createFormulation(Enunciado enun) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Enunciado> consultFormulation(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Enunciado showFormulation(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ConvocatoriaExamen createConvocatory(ConvocatoriaExamen covoy) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<ConvocatoriaExamen> consultConvocatory(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+
+ 
+
 }
