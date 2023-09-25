@@ -6,10 +6,12 @@
 package clases;
 
 import java.time.LocalDate;
+import modelo.DaoImplementacionBD;
 
 /**
+ * Se trata de la clase convocatoria
  *
- * @author 2dam
+ * @author Ander, Diego, Adrianssss
  */
 public class ConvocatoriaExamen {
 
@@ -17,8 +19,9 @@ public class ConvocatoriaExamen {
     private String descripcion;
     private LocalDate fecha;
     private String curso;
-    private Enunciado enunciado;
+    private int enunciado;
 
+    //Getters y setters 
     public ConvocatoriaExamen() {
 
     }
@@ -55,31 +58,49 @@ public class ConvocatoriaExamen {
         this.curso = curso;
     }
 
-    public Enunciado getEnunciado() {
+    public int getEnunciado() {
         return enunciado;
     }
 
-    public void setEnunciado(Enunciado enunciado) {
+    public void setEnunciado(int enunciado) {
         this.enunciado = enunciado;
     }
 
-    public void setDatosConvocatoriaExamen() {
+    public void setDatosConvocatoriaExamen(int enun) {
         convocatoria = utilidades.Utilidades.introducirCadena("Introduce la convocatoria: ");
         descripcion = utilidades.Utilidades.introducirCadena("Introduce la descripcion: ");
         fecha = utilidades.Utilidades.leerFecha("Introduce la fecha del examen: ");
         curso = utilidades.Utilidades.introducirCadena("Introduce el curso: ");
-        enunciado = introducirEnunciado();
+        // enunciado = existeEnun();
     }
 
-    private Enunciado introducirEnunciado() {
-        enunciado = new Enunciado();
-        enunciado.setDatosEnunciado();
-        return enunciado;
+    public void getDatosConvocatoriaExamen() {
+        System.out.println("Convocatoria: " + "\nDesctripcion: " + "\nFecha: " + "\nCurso: " + "\nEnunciado: ");
     }
     
-      public void getDatosConvocatoriaExamen() {
-          System.out.println("Convocatoria: " +"\nDesctripcion: "+"\nFecha: "+"\nCurso: "+"\nEnunciado: ");
+    public int existeEnun() {
+        DaoImplementacionBD daoBD = null;
+        Enunciado enun;
+        int id = 0;
+        boolean crear = false;
+
+        enun = (Enunciado) daoBD.consultFormulation(id);
+        do {
+            if (enun != null) {
+                id = enun.getId();
+            } else {
+
+                System.out.println("No existe  ese enunciado!");
+                if (crear = utilidades.Utilidades.esBoolean("¿Deseas crear un enunciado?(S/N)")) {
+                    enun = new Enunciado();
+                    enun.setDatosEnunciado();
+                    daoBD.createFormulation(enun);
+
+                } else {
+                    System.out.println("Se ha cancelado el creado!");
+                }
+            }
+        } while (enun == null);
+        return id;
     }
-      
-    
 }

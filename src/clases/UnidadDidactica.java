@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package clases;
 
 import java.util.ArrayList;
@@ -10,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author 2dam
+ * @author Diego, Adrian, Ander 
  */
 public class UnidadDidactica {
 
@@ -79,7 +74,7 @@ public class UnidadDidactica {
         titulo = utilidades.Utilidades.introducirCadena("Introduce el titulo: ");
         evaluacion = utilidades.Utilidades.introducirCadena("Introduce la evaluacion: ");
         descripcion = utilidades.Utilidades.introducirCadena("Introduce la descripcion: ");
-        enunciados = insertarEnunciados();
+        //enunciados = insertarEnunciados();
     }
 
     public void getDatosUnidad() {

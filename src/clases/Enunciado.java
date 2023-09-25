@@ -118,21 +118,28 @@ public class Enunciado {
     }
 
     private Dificultad aplicarDificultad() {
-        int opc;
-        Dificultad difi = null;
-
-        switch (opc = utilidades.Utilidades.leerInt("Introduce una opcion: \n ALTA \n MEDIA \n BAJA")) {
+        this.nivel = nivel;
+        
+        Integer[] niveles = {1, 2, 3};
+        
+        Integer opc = utilidades.Utilidades.leerInt("Introduce una opcion: \n ALTA \n MEDIA \n BAJA");
+        switch(opc){
             case 1:
-                difi = Dificultad.ALTA;
-                break;
+               this.nivel = nivel.ALTA;
+               
+            break;
             case 2:
-                difi = Dificultad.MEDIA;
-                break;
+                this.nivel = nivel.MEDIA;
+                
+            break;
             case 3:
-                difi = Dificultad.BAJA;
-                break;
+                this.nivel = nivel.BAJA;
+                
+            break;
+            
         }
-        return difi;
+        return nivel;
+
     }
 
 }

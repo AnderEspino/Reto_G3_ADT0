@@ -6,6 +6,7 @@
 package modelo;
 
 import clases.ConvocatoriaExamen;
+import clases.Dificultad;
 import clases.Enunciado;
 import clases.UnidadDidactica;
 import com.mysql.jdbc.Connection;
@@ -18,7 +19,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Métodos, conexiones y consultas SQL para realizar la parte de Base de datos del proyecto
+ * Métodos, conexiones y consultas SQL para realizar la parte de Base de datos
+ * del proyecto
+ *
  * @author Diego
  */
 public class DaoImplementacionBD implements DAO {
@@ -30,13 +33,12 @@ public class DaoImplementacionBD implements DAO {
     private String urlBD;
     private String userBD;
     private String passwordBD;
+
+    private final String CREATEUNID = "INSERT INTO unidad (id, acronimo, titulo, evaluacion, descripcion) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE id= 1";
+    private final String CREATEENUN = "INSERT INTO enunciado (id, descripcion, nivel, disponible, ruta) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE id= 1";
     
-    private final String CREATEUNID = "INSERT INTO unidad (id, acronimo, titulo, evaluacion, descripcion) VALUES (?,?,?,?,?)";
-    private final String CREATEENUN = "INSERT INTO enunciado (id, acronimo, titulo, evaluacion, descripcion, unidads_id) VALUES (?,?,?,?,?,?)";
-    private final String CONSULTENUN = "SELECT * FROM enunciado en INNER JOIN unidad uni ON en.id = uni.id";
+    private final String CONSULTENUN = "SELECT * FROM enunciado  INNER JOIN unidad  ON enunciado.id = unidad.id";
     private final String CONSULTENUNDOCU = "SELECT * FROM enunciado WHERE id = ?";
-    
-    
 
     // Metodo para conectarnos a la base de datos
     public DaoImplementacionBD() {
@@ -73,25 +75,20 @@ public class DaoImplementacionBD implements DAO {
     public UnidadDidactica createDidaticUnity(UnidadDidactica uni) {
         this.openConnection();
         ResultSet rs = null;
+        
         try {
-            
+            uni = new UnidadDidactica();
+            uni.setDatosUnidad();
             stmt = con.prepareStatement(CREATEUNID);
-            
+
             stmt.setInt(1, uni.getId());
             stmt.setString(2, uni.getAcronimo());
             stmt.setString(3, uni.getTitulo());
             stmt.setString(4, uni.getEvaluacion());
             stmt.setString(5, uni.getDescripcion());
+            
             stmt.executeUpdate();
-            if (rs.next()) {
-                uni.getId();
-                uni.getAcronimo();
-                uni.getTitulo();
-                uni.getEvaluacion();
-                uni.getDescripcion();
-            }else{
-                throw new SQLException("Ha habido un error al insertar los datos");
-            }
+           
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -100,37 +97,28 @@ public class DaoImplementacionBD implements DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return uni;
     }
 
-    
     @Override
     public Enunciado createFormulation(Enunciado enun) {
-       this.openConnection();
-       ResultSet rs = null;
-        
+        this.openConnection();
+        ResultSet rs = null;
+       
         try {
-            
+            enun = new Enunciado();
+            enun.setDatosEnunciado();
             stmt = con.prepareStatement(CREATEENUN);
-            
+
             stmt.setInt(1, enun.getId());
             stmt.setString(2, enun.getDescripcion());
-            stmt.setInt(3, enun.getNivel().ordinal());
+            stmt.setString(3, enun.getNivel().toString());
             stmt.setBoolean(4, enun.isDisponible());
             stmt.setString(5, enun.getRuta());
-            stmt.setObject(6, enun.getUnidadDidactica());
+
             stmt.executeUpdate();
-            if (rs.next()) {
-                enun.getId();
-                enun.getDescripcion();
-                enun.getNivel().ordinal();
-                enun.isDisponible();
-                enun.getRuta();
-                enun.getUnidadDidactica();
-            }else{
-                throw new SQLException("Ha habido un error al insertar los datos");
-            }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -139,29 +127,44 @@ public class DaoImplementacionBD implements DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return enun;
     }
-    
+
     @Override
     public List<Enunciado> consultFormulation(Integer id) {
-       
-       this.openConnection();
-       List<Enunciado> listEnum = new ArrayList<>();
-       
         
+        this.openConnection();
+        List<Enunciado> listEnum = new ArrayList<>();
+        ResultSet rs = null;
         try {
-            
-            stmt = con.prepareStatement(CONSULTENUN);
-            
-            stmt.setInt(1, listEnum.get(0).getId());
-            stmt.setString(2, listEnum.get(1).getDescripcion());
-            stmt.setInt(3, listEnum.get(2).getNivel().ordinal());
-            stmt.setBoolean(4, listEnum.get(3).isDisponible());
-            stmt.setString(5, listEnum.get(4).getRuta());
-            stmt.setObject(6, listEnum.get(5).recorrerConvocatorias());
 
-            stmt.executeUpdate();
+            stmt = con.prepareStatement(CONSULTENUN);
+            stmt.setInt(1, id);
+            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                Dificultad nivel = null;
+                
+                Enunciado enunciado = new Enunciado();
+                enunciado.setId(rs.getInt("enunciado.id"));
+                enunciado.setDescripcion(rs.getString("enunciado.descripcion"));
+                enunciado.setNivel(Dificultad.values()[rs.getInt("enunciado.nivel")]);
+                enunciado.setDisponible(rs.getBoolean("enunciado.disponible"));
+                enunciado.setRuta(rs.getString("enunciado.ruta"));
+                enunciado.setUnidadDidactica((List<UnidadDidactica>) rs.getObject("enunciado.UnidadDidactica"));
+                /*stmt.setInt(1, listEnum.get(0).getId());
+                stmt.setString(2, listEnum.get(1).getDescripcion());
+                stmt.setString(3, listEnum.get(2).getNivel().toString());
+                stmt.setBoolean(4, listEnum.get(3).isDisponible());
+                stmt.setString(5, listEnum.get(4).getRuta());
+                stmt.setObject(6, listEnum.get(5).recorrerConvocatorias());*/
+                listEnum.add(enunciado);    
+                enunciado.setDatosEnunciado();
+                
+            }
+           
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -170,26 +173,33 @@ public class DaoImplementacionBD implements DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return listEnum;
     }
-    
+
     @Override
     public Enunciado showFormulation(Integer id) {
-       Enunciado enun = new Enunciado();
-       this.openConnection();
-       try {
-            
+        Enunciado enun = new Enunciado();
+        ResultSet rs = null;
+        this.openConnection();
+        try {
+        
             stmt = con.prepareStatement(CONSULTENUNDOCU);
-            
-            stmt.setInt(1, enun.getId());
-            stmt.setString(2, enun.getDescripcion());
-            stmt.setInt(3, enun.getNivel().ordinal());
-            stmt.setBoolean(4, enun.isDisponible());
-            stmt.setString(5, enun.getRuta());
-            stmt.setObject(6, enun.getUnidadDidactica());
+            stmt.setInt(1, id);
 
-            stmt.executeUpdate();
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                enun.setId(id);
+                enun.setDescripcion(rs.getString("enunciado.descripcion"));
+                //enun.setNivel(Dificultad.values()[rs.getInt("enunciado.nivel")]);
+                enun.setDisponible(rs.getBoolean("enunciado.disponible"));
+                enun.setRuta(rs.getString("enunciado.ruta"));
+                //enun.setUnidadDidactica((List<UnidadDidactica>) rs.getObject("enunciado.UnidadDidactica"));
+                enun.getDatosEnunciado();
+                
+            }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -198,20 +208,18 @@ public class DaoImplementacionBD implements DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return enun;
     }
-    
-    
-    
+
     //Ignorar, estos métodos se hacen en el fichero
     @Override
     public ConvocatoriaExamen createConvocatory(ConvocatoriaExamen covoy) {
-      return null;
+        return null;
     }
 
     @Override
     public List<ConvocatoriaExamen> consultConvocatory(Integer id) {
-       return null;
+        return null;
     }
 }
