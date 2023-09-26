@@ -36,8 +36,8 @@ public class DaoImplementacionBD implements DAO {
 
     private final String CREATEUNID = "INSERT INTO unidad (id, acronimo, titulo, evaluacion, descripcion) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE id= 1";
     private final String CREATEENUN = "INSERT INTO enunciado (id, descripcion, nivel, disponible, ruta) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE id= 1";
-    
-    private final String CONSULTENUN = "SELECT * FROM enunciado  INNER JOIN unidad  ON enunciado.id = unidad.id";
+    //SELECT m.* FROM accoun a, movement m WHERE m.account_id = a.id AND m.id = ?
+    private final String CONSULTENUN = "SELECT e.* FROM enunciado e, unidad u WHERE e.id = u.id AND u.id = ?";
     private final String CONSULTENUNDOCU = "SELECT * FROM enunciado WHERE id = ?";
 
     // Metodo para conectarnos a la base de datos
@@ -148,20 +148,14 @@ public class DaoImplementacionBD implements DAO {
                 Dificultad nivel = null;
                 
                 Enunciado enunciado = new Enunciado();
-                enunciado.setId(rs.getInt("enunciado.id"));
-                enunciado.setDescripcion(rs.getString("enunciado.descripcion"));
-                enunciado.setNivel(Dificultad.values()[rs.getInt("enunciado.nivel")]);
-                enunciado.setDisponible(rs.getBoolean("enunciado.disponible"));
-                enunciado.setRuta(rs.getString("enunciado.ruta"));
-                enunciado.setUnidadDidactica((List<UnidadDidactica>) rs.getObject("enunciado.UnidadDidactica"));
-                /*stmt.setInt(1, listEnum.get(0).getId());
-                stmt.setString(2, listEnum.get(1).getDescripcion());
-                stmt.setString(3, listEnum.get(2).getNivel().toString());
-                stmt.setBoolean(4, listEnum.get(3).isDisponible());
-                stmt.setString(5, listEnum.get(4).getRuta());
-                stmt.setObject(6, listEnum.get(5).recorrerConvocatorias());*/
+                enunciado.setId(id);
+                enunciado.setDescripcion(rs.getString("descripcion"));
+                //enunciado.setNivel(Dificultad.values()[rs.getInt("nivel")]);
+                enunciado.setDisponible(rs.getBoolean("disponible"));
+                enunciado.setRuta(rs.getString("ruta"));
+                               
                 listEnum.add(enunciado);    
-                enunciado.setDatosEnunciado();
+                enunciado.getDatosEnunciado();
                 
             }
            
@@ -190,11 +184,11 @@ public class DaoImplementacionBD implements DAO {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 enun.setId(id);
-                enun.setDescripcion(rs.getString("enunciado.descripcion"));
-                //enun.setNivel(Dificultad.values()[rs.getInt("enunciado.nivel")]);
-                enun.setDisponible(rs.getBoolean("enunciado.disponible"));
-                enun.setRuta(rs.getString("enunciado.ruta"));
-                //enun.setUnidadDidactica((List<UnidadDidactica>) rs.getObject("enunciado.UnidadDidactica"));
+                enun.setDescripcion(rs.getString("descripcion"));
+                enun.setNivel(Dificultad.values()[rs.getInt("enunciado.nivel")]);
+                enun.setDisponible(rs.getBoolean("disponible"));
+                enun.setRuta(rs.getString("ruta"));
+                
                 enun.getDatosEnunciado();
                 
             }

@@ -79,10 +79,10 @@ public class UnidadDidactica {
 
     public void getDatosUnidad() {
         System.out.println("ID:" + id
-                + "\nAcronimo: " + acronimo + "\nTitulo: " + titulo + "\nEvaluacion: " + evaluacion + "\nDescripcion: " + descripcion +"\nEnunciados: "+ recogerEnunciados());
+                + "\nAcronimo: " + acronimo + "\nTitulo: " + titulo + "\nEvaluacion: " + evaluacion + "\nDescripcion: " + descripcion /*+"\nEnunciados: "+ recogerEnunciados()*/);
     }
 
-    public List<Enunciado> insertarEnunciados() {
+    /*public List<Enunciado> insertarEnunciados() {
         List<Enunciado> enunciado = new ArrayList<>();
         boolean resp = false;
         do {
@@ -100,5 +100,5 @@ public class UnidadDidactica {
             enunciados.get(i).getDatosEnunciado();
         }
         return enunciados;
-    }
+    }*/
 }

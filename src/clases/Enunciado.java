@@ -88,14 +88,14 @@ public class Enunciado {
         disponible = utilidades.Utilidades.esBoolean("¿Esta disponible?(S/N)");
         nivel = aplicarDificultad();
         ruta = utilidades.Utilidades.introducirCadena("Introduce la ruta: ");
-        convocatorias = introducirConvocatorias();
+        //convocatorias = introducirConvocatorias();
 
     }
 
     public void getDatosEnunciado() {
-        System.out.println("ID: " + id + "\nDescripcion: " + descripcion + "\nDisponible: " + disponible + "\nRuta: " + ruta + "\nUnidad Didactica: " + UnidadDidactica + "\nConvocatorias: " + recorrerConvocatorias());
+        System.out.println("ID: " + id + "\nDescripcion: " + descripcion + "\nDisponible: " + disponible + "\nRuta: " + ruta/* + "\nUnidad Didactica: " + UnidadDidactica + "\nConvocatorias: " + recorrerConvocatorias()*/);
     }
-
+    /*
     private List<ConvocatoriaExamen> introducirConvocatorias() {
         convocatorias = new ArrayList<>();
         ConvocatoriaExamen convocatoria;
@@ -115,7 +115,7 @@ public class Enunciado {
             convocatorias.get(i).getConvocatoria();
         }
         return convocatorias;
-    }
+    }*/
 
     private Dificultad aplicarDificultad() {
         this.nivel = nivel;
