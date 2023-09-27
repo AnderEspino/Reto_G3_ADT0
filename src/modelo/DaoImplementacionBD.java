@@ -10,6 +10,8 @@ import clases.Dificultad;
 import clases.Enunciado;
 import clases.UnidadDidactica;
 import com.mysql.jdbc.Connection;
+import excepciones.DataBaseNotOperativeException;
+import excepciones.FormulationDoesNoExistException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +19,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Métodos, conexiones y consultas SQL para realizar la parte de Base de datos
@@ -49,13 +53,12 @@ public class DaoImplementacionBD implements DAO {
         this.passwordBD = this.configFichero.getString("DBPass");
     }
 
-    private void openConnection() {
+    private void openConnection() throws DataBaseNotOperativeException {
         try {
             // Class.forName(this.driverBD);
             con = (Connection) DriverManager.getConnection(this.urlBD, this.userBD, this.passwordBD);
         } catch (SQLException e) {
-            System.out.println("Error al intentar abrir la BD");
-            e.printStackTrace();
+            throw new DataBaseNotOperativeException("Ha ocurrido un problema con la base de datos");
         } catch (Exception e) {
             System.out.println("Se ha abierto la base de datos");
             e.printStackTrace();
@@ -73,7 +76,11 @@ public class DaoImplementacionBD implements DAO {
 
     @Override
     public UnidadDidactica createDidaticUnity(UnidadDidactica uni) {
-        this.openConnection();
+        try {
+            this.openConnection();
+        } catch (DataBaseNotOperativeException ex) {
+            Logger.getLogger(DaoImplementacionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ResultSet rs = null;
         
         try {
@@ -103,7 +110,11 @@ public class DaoImplementacionBD implements DAO {
 
     @Override
     public Enunciado createFormulation(Enunciado enun) {
-        this.openConnection();
+        try {
+            this.openConnection();
+        } catch (DataBaseNotOperativeException ex) {
+            Logger.getLogger(DaoImplementacionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ResultSet rs = null;
        
         try {
@@ -132,9 +143,13 @@ public class DaoImplementacionBD implements DAO {
     }
 
     @Override
-    public List<Enunciado> consultFormulation(Integer id) {
+    public List<Enunciado> consultFormulation(Integer id) throws FormulationDoesNoExistException {
         
-        this.openConnection();
+        try {
+            this.openConnection();
+        } catch (DataBaseNotOperativeException ex) {
+            Logger.getLogger(DaoImplementacionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
         List<Enunciado> listEnum = new ArrayList<>();
         ResultSet rs = null;
         try {
@@ -145,16 +160,18 @@ public class DaoImplementacionBD implements DAO {
             rs = stmt.executeQuery();
             
             while (rs.next()) {
-                Dificultad nivel = null;
+                
                 
                 Enunciado enunciado = new Enunciado();
                 enunciado.setId(id);
                 enunciado.setDescripcion(rs.getString("descripcion"));
-                //enunciado.setNivel(Dificultad.values()[rs.getInt("nivel")]);
+                enunciado.setNivel(Dificultad.valueOf(rs.getString("nivel")));
                 enunciado.setDisponible(rs.getBoolean("disponible"));
                 enunciado.setRuta(rs.getString("ruta"));
                                
-                listEnum.add(enunciado);    
+                listEnum.add(enunciado);  
+                if (listEnum.isEmpty()) throw new FormulationDoesNoExistException("No existe un enunciado");
+                
                 enunciado.getDatosEnunciado();
                 
             }
@@ -175,7 +192,11 @@ public class DaoImplementacionBD implements DAO {
     public Enunciado showFormulation(Integer id) {
         Enunciado enun = new Enunciado();
         ResultSet rs = null;
-        this.openConnection();
+        try {
+            this.openConnection();
+        } catch (DataBaseNotOperativeException ex) {
+            Logger.getLogger(DaoImplementacionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
         
             stmt = con.prepareStatement(CONSULTENUNDOCU);
@@ -185,7 +206,7 @@ public class DaoImplementacionBD implements DAO {
             while (rs.next()) {
                 enun.setId(id);
                 enun.setDescripcion(rs.getString("descripcion"));
-                enun.setNivel(Dificultad.values()[rs.getInt("enunciado.nivel")]);
+                enun.setNivel(Dificultad.valueOf(rs.getString("nivel")));
                 enun.setDisponible(rs.getBoolean("disponible"));
                 enun.setRuta(rs.getString("ruta"));
                 

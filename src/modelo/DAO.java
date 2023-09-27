@@ -8,6 +8,7 @@ package modelo;
 import clases.ConvocatoriaExamen;
 import clases.Enunciado;
 import clases.UnidadDidactica;
+import excepciones.FormulationDoesNoExistException;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public interface DAO {
     
     public Enunciado createFormulation(Enunciado enun);
     
-    public List<Enunciado> consultFormulation(Integer id);
+    public List<Enunciado> consultFormulation(Integer id) throws FormulationDoesNoExistException;
     
     public Enunciado showFormulation(Integer id);
     

@@ -372,6 +372,7 @@ public class Utilidades {
 	//Devuelve el número de objetos de un fichero
 	 public static int calculoFichero(File fich){
 	 	int cont=0;
+                Object aux = new Object();
 	 	if (fich.exists()){
 		 	FileInputStream fis=null;
 		 	ObjectInputStream ois=null;
@@ -379,8 +380,8 @@ public class Utilidades {
 		 		fis=new FileInputStream(fich);
 		 		ois=new ObjectInputStream(fis);
 	
-		 		Object aux=ois.readObject();
-	
+		 		aux=ois.readObject();
+                                
 		 		while (aux!=null){
 		 			cont++;
 		 			aux=ois.readObject();

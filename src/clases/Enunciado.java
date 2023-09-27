@@ -5,6 +5,7 @@
  */
 package clases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author 2dam
  */
-public class Enunciado {
+public class Enunciado implements Serializable{
 
     private Dificultad nivel;
     private int id;
@@ -93,7 +94,7 @@ public class Enunciado {
     }
 
     public void getDatosEnunciado() {
-        System.out.println("ID: " + id + "\nDescripcion: " + descripcion + "\nDisponible: " + disponible + "\nRuta: " + ruta/* + "\nUnidad Didactica: " + UnidadDidactica + "\nConvocatorias: " + recorrerConvocatorias()*/);
+        System.out.println("ID: " + id + "\nDescripcion: " + descripcion + "\nDisponible: " + disponible + "\nRuta: " + ruta + "\nNivel: " + nivel/* + "\nUnidad Didactica: " + UnidadDidactica + "\nConvocatorias: " + recorrerConvocatorias()*/);
     }
     /*
     private List<ConvocatoriaExamen> introducirConvocatorias() {

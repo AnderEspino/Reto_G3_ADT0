@@ -5,15 +5,15 @@
  */
 package clases;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-import modelo.DaoImplementacionBD;
 
 /**
  * Se trata de la clase convocatoria
  *
  * @author Ander, Diego, Adrianssss
  */
-public class ConvocatoriaExamen {
+public class ConvocatoriaExamen implements Serializable {
 
     private String convocatoria;
     private String descripcion;
@@ -71,20 +71,21 @@ public class ConvocatoriaExamen {
         descripcion = utilidades.Utilidades.introducirCadena("Introduce la descripcion: ");
         fecha = utilidades.Utilidades.leerFecha("Introduce la fecha del examen: ");
         curso = utilidades.Utilidades.introducirCadena("Introduce el curso: ");
-        // enunciado = existeEnun();
+        enunciado = enun;
     }
 
     public void getDatosConvocatoriaExamen() {
-        System.out.println("Convocatoria: " + "\nDesctripcion: " + "\nFecha: " + "\nCurso: " + "\nEnunciado: ");
+        System.out.println("Convocatoria: "+ convocatoria + "\nDesctripcion: "+ descripcion + "\nFecha: "+ fecha + "\nCurso: "+ curso + "\nID del Enunciado: "+enunciado+"\n");
     }
     
-    public int existeEnun() {
-        DaoImplementacionBD daoBD = null;
+    /*public int existeEnun() {
+        DaoImplementacionBD daoBD = new DaoImplementacionBD();
         Enunciado enun;
         int id = 0;
         boolean crear = false;
 
         enun = (Enunciado) daoBD.consultFormulation(id);
+        
         do {
             if (enun != null) {
                 id = enun.getId();
@@ -101,6 +102,7 @@ public class ConvocatoriaExamen {
                 }
             }
         } while (enun == null);
+        
         return id;
-    }
+    }*/
 }
