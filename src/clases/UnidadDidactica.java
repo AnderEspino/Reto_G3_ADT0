@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Se trata de la clase unidad didática
  *
- * @author Diego, Adrian, Ander 
+ * @author Ander, Diego, Adrian
  */
 public class UnidadDidactica {
 
@@ -68,37 +69,24 @@ public class UnidadDidactica {
         this.enunciados = enunciados;
     }
 
+    /**
+     * Metodo setdatos para introducir unidades
+     */
     public void setDatosUnidad() {
         id = utilidades.Utilidades.leerInt("Introduce el ID: ");
         acronimo = utilidades.Utilidades.introducirCadena("Introduce el actronimo: ");
         titulo = utilidades.Utilidades.introducirCadena("Introduce el titulo: ");
         evaluacion = utilidades.Utilidades.introducirCadena("Introduce la evaluacion: ");
         descripcion = utilidades.Utilidades.introducirCadena("Introduce la descripcion: ");
-        //enunciados = insertarEnunciados();
+        
     }
-
+    /**
+     * Metodo getdatos para introducir Convocatorias
+     */
     public void getDatosUnidad() {
         System.out.println("ID:" + id
-                + "\nAcronimo: " + acronimo + "\nTitulo: " + titulo + "\nEvaluacion: " + evaluacion + "\nDescripcion: " + descripcion /*+"\nEnunciados: "+ recogerEnunciados()*/);
+                + "\nAcronimo: " + acronimo + "\nTitulo: " + titulo + "\nEvaluacion: " + evaluacion + "\nDescripcion: " + descripcion );
     }
 
-    /*public List<Enunciado> insertarEnunciados() {
-        List<Enunciado> enunciado = new ArrayList<>();
-        boolean resp = false;
-        do {
-            Enunciado enun = new Enunciado();
-            enun.setDatosEnunciado();
-            enunciado.add(enun);
-            resp = utilidades.Utilidades.esBoolean("¿Deseas seguir introduciendo enunciados? (S/N)");
-        } while (resp);
-        return enunciado;
-
-    }
-
-    public List<Enunciado> recogerEnunciados() {
-        for (int i = 0; i < 0; i++) {
-            enunciados.get(i).getDatosEnunciado();
-        }
-        return enunciados;
-    }*/
+    
 }

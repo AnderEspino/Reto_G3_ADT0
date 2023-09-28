@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Se trata de la clase Enunciado
  *
- * @author 2dam
+ * @author Ander, Diego, Adrian
  */
 public class Enunciado implements Serializable{
 
@@ -83,41 +84,29 @@ public class Enunciado implements Serializable{
         this.convocatorias = convocatorias;
     }
 
+    /**
+     * Metodo setDatos para introducir Enunciados
+     */
     public void setDatosEnunciado() {
         id = utilidades.Utilidades.leerInt("Introduce el ID: ");
         descripcion = utilidades.Utilidades.introducirCadena("Introduce una descripcion: ");
         disponible = utilidades.Utilidades.esBoolean("¿Esta disponible?(S/N)");
         nivel = aplicarDificultad();
         ruta = utilidades.Utilidades.introducirCadena("Introduce la ruta: ");
-        //convocatorias = introducirConvocatorias();
+        
 
     }
-
+    /**
+     * Metodo getDatos para introducir Enunciado
+     */
     public void getDatosEnunciado() {
         System.out.println("ID: " + id + "\nDescripcion: " + descripcion + "\nDisponible: " + disponible + "\nRuta: " + ruta + "\nNivel: " + nivel/* + "\nUnidad Didactica: " + UnidadDidactica + "\nConvocatorias: " + recorrerConvocatorias()*/);
     }
-    /*
-    private List<ConvocatoriaExamen> introducirConvocatorias() {
-        convocatorias = new ArrayList<>();
-        ConvocatoriaExamen convocatoria;
-        boolean seguir;
-
-        do {
-            convocatoria = new ConvocatoriaExamen();
-            //setdatos
-            convocatorias.add(convocatoria);
-            seguir = utilidades.Utilidades.esBoolean("¿Deseas seguir introduciendo convocatorias?(S/N)");
-        } while (seguir);
-        return convocatorias;
-    }
-
-    public List<ConvocatoriaExamen> recorrerConvocatorias() {
-        for (int i = 0; i < 0; i++) {
-            convocatorias.get(i).getConvocatoria();
-        }
-        return convocatorias;
-    }*/
-
+    
+    /**
+     * Metodo aplicarDificultad para introducir una dificultad al enunciado
+     * @param enun
+     */
     private Dificultad aplicarDificultad() {
         this.nivel = nivel;
         

@@ -11,7 +11,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.rmi.CORBA.Util;
-
+/**
+ * Métodos para leer datos mediante un fichero
+ * @author Ander, Adrian, Diego
+ */
 public class Utilidades {
 
 	public static String introducirCadena(){

@@ -45,6 +45,7 @@ public class DaoImplementacionBD implements DAO {
     private final String CONSULTENUNDOCU = "SELECT * FROM enunciado WHERE id = ?";
 
     // Metodo para conectarnos a la base de datos
+   
     public DaoImplementacionBD() {
         this.configFichero = ResourceBundle.getBundle("modelo.configuracion");
         this.driverBD = this.configFichero.getString("Driver");
@@ -52,7 +53,9 @@ public class DaoImplementacionBD implements DAO {
         this.userBD = this.configFichero.getString("DBUser");
         this.passwordBD = this.configFichero.getString("DBPass");
     }
-
+    /**
+     * Método OpenConnection para la base de datos
+     */
     private void openConnection() throws DataBaseNotOperativeException {
         try {
             // Class.forName(this.driverBD);
@@ -64,7 +67,9 @@ public class DaoImplementacionBD implements DAO {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Método closeConnection() para la base de datos
+     */
     private void closeConnection() throws SQLException {
         if (stmt != null) {
             stmt.close();
@@ -73,8 +78,13 @@ public class DaoImplementacionBD implements DAO {
             con.close();
         }
     }
-
+    
     @Override
+    /**
+    * Método createDidaticUnity de la BD
+    * @param uni
+    * @return uni
+    */
     public UnidadDidactica createDidaticUnity(UnidadDidactica uni) {
         try {
             this.openConnection();
@@ -107,8 +117,12 @@ public class DaoImplementacionBD implements DAO {
 
         return uni;
     }
-
     @Override
+    /**
+    * Método createFormulation de la BD
+    * @param enun
+    * @return enun
+    */
     public Enunciado createFormulation(Enunciado enun) {
         try {
             this.openConnection();
@@ -143,6 +157,11 @@ public class DaoImplementacionBD implements DAO {
     }
 
     @Override
+    /**
+    * Método consultFormulation de la BD
+    * @param id
+    * @return listEnum
+    */
     public List<Enunciado> consultFormulation(Integer id) throws FormulationDoesNoExistException {
         
         try {
@@ -174,6 +193,7 @@ public class DaoImplementacionBD implements DAO {
                 
                 enunciado.getDatosEnunciado();
                 
+                
             }
            
         } catch (SQLException e) {
@@ -189,6 +209,11 @@ public class DaoImplementacionBD implements DAO {
     }
 
     @Override
+    /**
+    * Método showFormulation de la BD
+    * @param id
+    * @return enum
+    */
     public Enunciado showFormulation(Integer id) {
         Enunciado enun = new Enunciado();
         ResultSet rs = null;
@@ -211,6 +236,7 @@ public class DaoImplementacionBD implements DAO {
                 enun.setRuta(rs.getString("ruta"));
                 
                 enun.getDatosEnunciado();
+                
                 
             }
 

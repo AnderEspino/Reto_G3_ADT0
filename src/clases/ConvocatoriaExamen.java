@@ -11,7 +11,7 @@ import java.time.LocalDate;
 /**
  * Se trata de la clase convocatoria
  *
- * @author Ander, Diego, Adrianssss
+ * @author Ander, Diego, Adrian
  */
 public class ConvocatoriaExamen implements Serializable {
 
@@ -66,6 +66,10 @@ public class ConvocatoriaExamen implements Serializable {
         this.enunciado = enunciado;
     }
 
+    /**
+     * Metodo setdatos para introducir Convocatorias
+     * @param enun
+     */
     public void setDatosConvocatoriaExamen(int enun) {
         convocatoria = utilidades.Utilidades.introducirCadena("Introduce la convocatoria: ");
         descripcion = utilidades.Utilidades.introducirCadena("Introduce la descripcion: ");
@@ -73,36 +77,12 @@ public class ConvocatoriaExamen implements Serializable {
         curso = utilidades.Utilidades.introducirCadena("Introduce el curso: ");
         enunciado = enun;
     }
-
+    /**
+     * Metodo Para mostrar los datos de la convocatoria
+     */
     public void getDatosConvocatoriaExamen() {
         System.out.println("Convocatoria: "+ convocatoria + "\nDesctripcion: "+ descripcion + "\nFecha: "+ fecha + "\nCurso: "+ curso + "\nID del Enunciado: "+enunciado+"\n");
     }
     
-    /*public int existeEnun() {
-        DaoImplementacionBD daoBD = new DaoImplementacionBD();
-        Enunciado enun;
-        int id = 0;
-        boolean crear = false;
-
-        enun = (Enunciado) daoBD.consultFormulation(id);
-        
-        do {
-            if (enun != null) {
-                id = enun.getId();
-            } else {
-
-                System.out.println("No existe  ese enunciado!");
-                if (crear = utilidades.Utilidades.esBoolean("¿Deseas crear un enunciado?(S/N)")) {
-                    enun = new Enunciado();
-                    enun.setDatosEnunciado();
-                    daoBD.createFormulation(enun);
-
-                } else {
-                    System.out.println("Se ha cancelado el creado!");
-                }
-            }
-        } while (enun == null);
-        
-        return id;
-    }*/
+    
 }

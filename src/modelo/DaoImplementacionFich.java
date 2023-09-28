@@ -29,32 +29,16 @@ import utilidades.Utilidades;
  */
 public class DaoImplementacionFich implements DAO {
 
-    File fich = new File("CExamen.obj");
+    File fich = new File("convocatorias.dat");
 
-    private static void volcarListFich(List<ConvocatoriaExamen> convocatoria, File fich) {
-        // TODO Auto-generated method stub
-        ObjectOutputStream oos = null;
+    
 
-        try {
-            oos = new ObjectOutputStream(new FileOutputStream(fich));
-
-            for (int i = 0; i < convocatoria.size(); i++) {
-                oos.writeObject(convocatoria.get(i));
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                oos.flush();
-                oos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
+    
+    /**
+     * Metodo volcarListFich
+     * @param fich
+     * @return convocatoria
+     */
     private static List<ConvocatoriaExamen> volcarFichList(File fich) {
         // TODO Auto-generated method stub
         List<ConvocatoriaExamen> convocatoria = new ArrayList<>();
@@ -104,7 +88,7 @@ public class DaoImplementacionFich implements DAO {
      *
      * @param covoy
      * @author Adrian, Ander
-     * @return Devuelve el objeto convocatoria examen
+     * @return convoy
      */
     public ConvocatoriaExamen createConvocatory(ConvocatoriaExamen covoy) {
         // Declaración de variables
@@ -148,7 +132,7 @@ public class DaoImplementacionFich implements DAO {
      *
      * @param id
      * @author Adrian, Ander
-     * @return Devuelve el objeto convocatoria examen
+     * @return convocatorias
      */
     @Override
     public List<ConvocatoriaExamen> consultConvocatory(Integer id) {
@@ -167,36 +151,7 @@ public class DaoImplementacionFich implements DAO {
             System.out.println("Todavia no hay convocatorias!");
         }
 
-        /*boolean esta;
-        String nombre;
-        ConvocatoriaExamen covoy = null;
-        ObjectInputStream ois = null;
-        boolean existe = false;
-        List<ConvocatoriaExamen> convocatorias = new ArrayList<>();
-        if (fich.exists()) {
-            try {
-//		Recorremos el for para listar las convocatorias
-                ois = new ObjectInputStream(new FileInputStream(fich));
-                for (int i = 0; i < Utilidades.calculoFichero(fich); i++) {
-                    covoy = (ConvocatoriaExamen) ois.readObject();
-                    if (covoy.getEnunciado() == id) {
-                        covoy.getConvocatoria();
-                        convocatorias.add(covoy);
-                        existe = true;
-                    }
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(DaoImplementacionFich.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DaoImplementacionFich.class.getName()).log(Level.SEVERE, null, ex);
-
-            }
-            if (!existe) {
-                System.out.println("No existe ninguna lista que este asociado a esa ID!");
-            }
-        } else {
-            System.out.println("Todavia no hay convocatorias!");
-        }*/
+        
         return convocatorias;
     }
 
@@ -231,5 +186,7 @@ public class DaoImplementacionFich implements DAO {
         }
         return existe;
     }
+
+    
 
 }

@@ -6,15 +6,21 @@
 package modelo;
 
 /**
- *
- * @author 2dam
+ * Factoria del DAO, crea implementaciones de base de datos o de ficheros
+ * @author Diego
  */
 public class FactoriaDAO {
-
+    /**
+     * Implementacion de base de datos
+     * @return DaoImplementacionBD
+     */
     public static DAO getImplementacionBD() {
         return new DaoImplementacionBD();
     }
-
+    /**
+     * Implementacion de fichero
+     * @return DaoImplementacionFich()
+     */
     public static DAO getImplementacionFich() {
         return new DaoImplementacionFich();
     }
