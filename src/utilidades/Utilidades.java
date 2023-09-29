@@ -11,7 +11,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.rmi.CORBA.Util;
-
+/**
+ * Métodos para leer datos mediante un fichero
+ * @author Ander, Adrian, Diego
+ */
 public class Utilidades {
 
 	public static String introducirCadena(){
@@ -372,6 +375,7 @@ public class Utilidades {
 	//Devuelve el número de objetos de un fichero
 	 public static int calculoFichero(File fich){
 	 	int cont=0;
+                Object aux = new Object();
 	 	if (fich.exists()){
 		 	FileInputStream fis=null;
 		 	ObjectInputStream ois=null;
@@ -379,8 +383,8 @@ public class Utilidades {
 		 		fis=new FileInputStream(fich);
 		 		ois=new ObjectInputStream(fis);
 	
-		 		Object aux=ois.readObject();
-	
+		 		aux=ois.readObject();
+                                
 		 		while (aux!=null){
 		 			cont++;
 		 			aux=ois.readObject();

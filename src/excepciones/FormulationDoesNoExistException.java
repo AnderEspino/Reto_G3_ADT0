@@ -7,12 +7,15 @@ package excepciones;
 
 /**
  *
- * @author 2dam
+ * @author Diego
  */
 public class FormulationDoesNoExistException extends Exception {
 
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Excepcion para comprobar si hay enunciados o no
+     * @param message
+     */
     public FormulationDoesNoExistException(String message) {
         super(message);
     }

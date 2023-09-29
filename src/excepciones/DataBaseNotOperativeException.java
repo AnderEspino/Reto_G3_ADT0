@@ -7,12 +7,16 @@ package excepciones;
 
 /**
  *
- * @author 2dam
+ * @author Diego
  */
 public class DataBaseNotOperativeException extends Exception {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Excepcion para comprobar si la base de datos está operativa o no
+     * @param message
+     */
     public DataBaseNotOperativeException(String message) {
         super(message);
     }

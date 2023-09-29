@@ -5,20 +5,23 @@
  */
 package clases;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
+ * Se trata de la clase convocatoria
  *
- * @author 2dam
+ * @author Ander, Diego, Adrian
  */
-public class ConvocatoriaExamen {
+public class ConvocatoriaExamen implements Serializable {
 
     private String convocatoria;
     private String descripcion;
     private LocalDate fecha;
     private String curso;
-    private Enunciado enunciado;
+    private int enunciado;
 
+    //Getters y setters 
     public ConvocatoriaExamen() {
 
     }
@@ -55,31 +58,31 @@ public class ConvocatoriaExamen {
         this.curso = curso;
     }
 
-    public Enunciado getEnunciado() {
+    public int getEnunciado() {
         return enunciado;
     }
 
-    public void setEnunciado(Enunciado enunciado) {
+    public void setEnunciado(int enunciado) {
         this.enunciado = enunciado;
     }
 
-    public void setDatosConvocatoriaExamen() {
+    /**
+     * Metodo setdatos para introducir Convocatorias
+     * @param enun
+     */
+    public void setDatosConvocatoriaExamen(int enun) {
         convocatoria = utilidades.Utilidades.introducirCadena("Introduce la convocatoria: ");
         descripcion = utilidades.Utilidades.introducirCadena("Introduce la descripcion: ");
         fecha = utilidades.Utilidades.leerFecha("Introduce la fecha del examen: ");
         curso = utilidades.Utilidades.introducirCadena("Introduce el curso: ");
-        enunciado = introducirEnunciado();
+        enunciado = enun;
     }
-
-    private Enunciado introducirEnunciado() {
-        enunciado = new Enunciado();
-        enunciado.setDatosEnunciado();
-        return enunciado;
+    /**
+     * Metodo Para mostrar los datos de la convocatoria
+     */
+    public void getDatosConvocatoriaExamen() {
+        System.out.println("Convocatoria: "+ convocatoria + "\nDesctripcion: "+ descripcion + "\nFecha: "+ fecha + "\nCurso: "+ curso + "\nID del Enunciado: "+enunciado+"\n");
     }
     
-      public void getDatosConvocatoriaExamen() {
-          System.out.println("Convocatoria: " +"\nDesctripcion: "+"\nFecha: "+"\nCurso: "+"\nEnunciado: ");
-    }
-      
     
 }

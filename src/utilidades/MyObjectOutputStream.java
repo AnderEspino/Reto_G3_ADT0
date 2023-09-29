@@ -10,8 +10,8 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 /**
- *
- * @author 2dam
+ * Métodos de lectura y escritura de ficheros
+ * @author Adrian
  */
 public class MyObjectOutputStream extends ObjectOutputStream {
 

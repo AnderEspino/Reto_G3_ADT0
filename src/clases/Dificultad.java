@@ -6,8 +6,9 @@
 package clases;
 
 /**
+ * Enumeración de dificultad
  *
- * @author 2dam
+ * @author Ander, Diego, Adrian
  */
 public enum Dificultad {
     ALTA,

@@ -5,14 +5,16 @@
  */
 package clases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Se trata de la clase Enunciado
  *
- * @author 2dam
+ * @author Ander, Diego, Adrian
  */
-public class Enunciado {
+public class Enunciado implements Serializable{
 
     private Dificultad nivel;
     private int id;
@@ -82,57 +84,52 @@ public class Enunciado {
         this.convocatorias = convocatorias;
     }
 
+    /**
+     * Metodo setDatos para introducir Enunciados
+     */
     public void setDatosEnunciado() {
         id = utilidades.Utilidades.leerInt("Introduce el ID: ");
         descripcion = utilidades.Utilidades.introducirCadena("Introduce una descripcion: ");
         disponible = utilidades.Utilidades.esBoolean("¿Esta disponible?(S/N)");
         nivel = aplicarDificultad();
         ruta = utilidades.Utilidades.introducirCadena("Introduce la ruta: ");
-        convocatorias = introducirConvocatorias();
+        
 
     }
-
+    /**
+     * Metodo getDatos para introducir Enunciado
+     */
     public void getDatosEnunciado() {
-        System.out.println("ID: " + id + "\nDescripcion: " + descripcion + "\nDisponible: " + disponible + "\nRuta: " + ruta + "\nUnidad Didactica: " + UnidadDidactica + "\nConvocatorias: " + recorrerConvocatorias());
+        System.out.println("ID: " + id + "\nDescripcion: " + descripcion + "\nDisponible: " + disponible + "\nRuta: " + ruta + "\nNivel: " + nivel/* + "\nUnidad Didactica: " + UnidadDidactica + "\nConvocatorias: " + recorrerConvocatorias()*/);
     }
-
-    private List<ConvocatoriaExamen> introducirConvocatorias() {
-        convocatorias = new ArrayList<>();
-        ConvocatoriaExamen convocatoria;
-        boolean seguir;
-
-        do {
-            convocatoria = new ConvocatoriaExamen();
-            //setdatos
-            convocatorias.add(convocatoria);
-            seguir = utilidades.Utilidades.esBoolean("¿Deseas seguir introduciendo convocatorias?(S/N)");
-        } while (seguir);
-        return convocatorias;
-    }
-
-    public List<ConvocatoriaExamen> recorrerConvocatorias() {
-        for (int i = 0; i < 0; i++) {
-            convocatorias.get(i).getConvocatoria();
-        }
-        return convocatorias;
-    }
-
+    
+    /**
+     * Metodo aplicarDificultad para introducir una dificultad al enunciado
+     * @param enun
+     */
     private Dificultad aplicarDificultad() {
-        int opc;
-        Dificultad difi = null;
-
-        switch (opc = utilidades.Utilidades.leerInt("Introduce una opcion: \n ALTA \n MEDIA \n BAJA")) {
+        this.nivel = nivel;
+        
+        Integer[] niveles = {1, 2, 3};
+        
+        Integer opc = utilidades.Utilidades.leerInt("Introduce una opcion: \n ALTA \n MEDIA \n BAJA");
+        switch(opc){
             case 1:
-                difi = Dificultad.ALTA;
-                break;
+               this.nivel = nivel.ALTA;
+               
+            break;
             case 2:
-                difi = Dificultad.MEDIA;
-                break;
+                this.nivel = nivel.MEDIA;
+                
+            break;
             case 3:
-                difi = Dificultad.BAJA;
-                break;
+                this.nivel = nivel.BAJA;
+                
+            break;
+            
         }
-        return difi;
+        return nivel;
+
     }
 
 }
